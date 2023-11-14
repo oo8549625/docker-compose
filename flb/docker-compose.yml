@@ -2,7 +2,16 @@ version: "3.7"
 
 services:
   fluent-bit:
-    image: fluent/fluent-bit
+    restart: always
+    image: fluent/fluent-bit:2.1.8
+    ports:
+      - "24224:24224"
+      - "24224:24224/udp"
     volumes:
-      - ./fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf
-    
+    # 基本設定
+      - ./etc/fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf
+      - ./etc/parsers.conf:/fluent-bit/etc/parsers.conf"
+      - ./etc/conf.d:/fluent-bit/etc/conf.d"
+    # 抓取日誌
+      - "/var/log/mysql:/var/log/mysql"
+      - "/var/log/nginx:/var/log/nginx"
