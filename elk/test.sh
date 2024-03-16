@@ -1,1 +1,20 @@
-curl -X POST "localhost:9200/test/_doc/?pretty" -H 'Content-Type: application/json' -d' { "@timestamp": "2024-03-16T16:55:00", "message": "GET /search HTTP/1.1 200 1070000", "user": { "id": "kimchy" } } '
+while true; do timestamp=$(date -u +"%Y-%m-%dT%H:%M:%SZ"); curl -X POST "localhost:9200/test/_doc/?pretty" -H 'Content-Type: application/json' -d '{
+    "@timestamp": "'"${timestamp}"'",
+    "upstream": "172.20.166.49:8080",
+    "upstream_response_length": "0",
+    "body_bytes_sent": "0",
+    "request_method": "HEAD",
+    "x_real_ip": "",
+    "request_uri": "/auth/login",
+    "x_forwarded_for": "",
+    "http_user_agent": "",
+    "upstream_status": "400",
+    "request_time": "0.007",
+    "host": "test.dev.com",
+    "namespace": "test",
+    "client": "10.0.0.1",
+    "http_referrer": "",
+    "upstream_response_time": "0.002",
+    "server_protocol": "HTTP/1.0",
+    "status": "400"
+}'; sleep 1; done
