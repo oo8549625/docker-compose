@@ -1,0 +1,11 @@
+{
+    "@timestamp": "{{context.date}}",
+    "rule_name": "{{rule.name}}",
+    "alert_id": "{{alert.id}}",
+    "context_conditions": "{{context.conditions}}",
+    "context_hits": "{{context.hits}}",
+    "context_link": "{{context.link}}",
+    "context_message": "{{context.message}}",
+    "context_title": "{{context.title}}",
+    "context_value": "{{context.value}}"
+}
