@@ -42,11 +42,13 @@ services:
 
   logstash:
     container_name: logstash
-    image: docker.elastic.co/logstash/logstash:8.12.2
+    image: docker.elastic.co/logstash/logstash:8.11.3
     networks:
       - elastic
     volumes:
       - ./logstash/pipeline:/usr/share/logstash/pipeline
+      - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
+      - ./logstash/certs:/usr/share/logstash/certs
 
 networks:
   elastic:
