@@ -2,6 +2,7 @@ modules:
   # module: expect http_2xx, with ip4
   http_2xx:
     prober: http
-    timeout: 5s
     http:
-      preferred_ip_protocol: "ip4"
+      preferred_ip_protocol: "ip4" # defaults to "ip6"
+      valid_status_codes: [200]  # Defaults to 2xx
+      method: GET

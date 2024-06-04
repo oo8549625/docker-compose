@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   blackbox_exporter:
     image: quay.io/prometheus/blackbox-exporter:latest
