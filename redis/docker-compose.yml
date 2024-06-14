@@ -1,12 +1,23 @@
 services:
-  redis:
+  source_redis:
     image: redis:3.2.12
     restart: always
-    container_name: redis
+    container_name: source_redis
     command: redis-server /usr/local/etc/redis/redis.conf
     volumes:
-      - ./data:/data
-      - ./conf:/usr/local/etc/redis
+      - ./data/source:/data
+      - ./conf/source:/usr/local/etc/redis
       - ./tmp:/tmp
     ports:
       - "6379:6379"
+  target_redis:
+    image: redis:3.2.12
+    restart: always
+    container_name: target_redis
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./data/target:/data
+      - ./conf/target:/usr/local/etc/redis
+      - ./tmp:/tmp
+    ports:
+      - "6380:6379"
