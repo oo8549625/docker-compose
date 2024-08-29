@@ -6,3 +6,19 @@ modules:
       preferred_ip_protocol: "ip4" # defaults to "ip6"
       valid_status_codes: [200]  # Defaults to 2xx
       method: GET
+  dns_cname_check:
+    prober: dns
+    timeout: 1s
+    dns:
+      preferred_ip_protocol: "ip4"  # 使用 IPv4（也可以是 "ip6" 或 "ip4"）
+      ip_protocol_fallback: true     # 如果首選 IP 協議無法使用，是否回退
+      source_ip_address: ""          # 可以指定源 IP 地址，如果不需要可以留空
+      transport_protocol: "udp"     # 使用 UDP 協議（可以選擇 "tcp"）
+      dns_over_tls: false            # 不使用 DNS over TLS（如果需要，請設置為 true）
+      query_name: "www.google.com"      # 要查詢的域名
+      query_type: "CNAME"            
+      query_class: "IN"              
+      recursion_desired: true        # 設置查詢時是否需要遞歸
+      valid_rcodes:                  # 設置有效的響應碼
+        - "NOERROR"
+        

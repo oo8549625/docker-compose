@@ -21,9 +21,9 @@ rule_files:
 scrape_configs:
   # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
   - job_name: 'prometheus'
-    basic_auth:
-        username: admin
-        password: 7iDk5jbAe5JH
+    # basic_auth:
+    #     username: admin
+    #     password: 7iDk5jbAe5JH
     static_configs:
     - targets: ['127.0.0.1:9090']
 
@@ -69,3 +69,30 @@ scrape_configs:
     static_configs:
       - targets: ['WEB-01:19999'] 
 
+  - job_name: 'blackbox_dns'
+    metrics_path: /probe
+    params:
+      module: [dns_cname_check]
+    static_configs:
+      - targets:
+        - 8.8.8.8
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - source_labels: [__param_module]
+        target_label: job
+      - target_label: __address__
+        replacement: blackbox:9115  # Blackbox Exporter 的地址
+
+  - job_name: domain
+    metrics_path: /probe
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - target_label: __address__
+        replacement: domain:9222 # domain_exporter address
+    static_configs:
+      - targets:
+        - www.google.com

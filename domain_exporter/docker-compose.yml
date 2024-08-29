@@ -1,0 +1,14 @@
+services:
+  domain:
+    image: caarlos0/domain_exporter:v1.23.0
+    restart: always
+    container_name: domain
+    ports:
+      - 9222:9222
+    networks:
+      - prome_network
+
+networks:
+  prome_network:
+    external: true
+    name: prome_network

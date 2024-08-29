@@ -1,12 +1,40 @@
-version: '3'
 services:
   prometheus:
-    image: prom/prometheus:v2.45.0
+    image: prom/prometheus:v2.54.0
     user: "1003"
     restart: always
-    command: --storage.tsdb.retention.time=10d --storage.tsdb.retention.size=50GB --web.enable-remote-write-receiver --web.enable-admin-api --web.enable-lifecycle --config.file=/etc/prometheus/prometheus.yml --web.config.file=/etc/prometheus/web.yml
+    command: 
+      - --storage.tsdb.retention.time=10d
+      - --storage.tsdb.retention.size=50GB
+      - --web.enable-remote-write-receiver
+      - --web.enable-admin-api
+      - --web.enable-lifecycle
+      - --config.file=/etc/prometheus/prometheus.yml
+      # - --web.config.file=/etc/prometheus/web.yml
     volumes:
       - "./conf:/etc/prometheus/"
       - "./data/prometheus:/prometheus"
     ports:
       - "9090:9090"
+    networks:
+      - prome_network
+
+  grafana:
+    image: grafana/grafana:10.4.6-ubuntu
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=test1234
+    volumes:
+      - ./grafana/data/:/var/lib/grafana
+      - ./grafana/plugins/:/var/lib/grafana/plugins
+      - ./grafana/config/grafana.ini:/etc/grafana/grafana.ini
+    restart: always
+    networks:
+      - prome_network
+
+networks:
+  prome_network:
+    driver: bridge
+    name: prome_network

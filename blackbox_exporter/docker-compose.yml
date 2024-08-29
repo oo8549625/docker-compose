@@ -1,10 +1,18 @@
 services:
-  blackbox_exporter:
+  blackbox:
     image: quay.io/prometheus/blackbox-exporter:latest
     command: --config.file=/config/blackbox.yml
     restart: always
     volumes: 
       - ./config:/config
-    container_name: blackbox_exporter
+    container_name: blackbox
     ports:
       - 9115:9115
+
+    networks:
+      - prome_network
+
+networks:
+  prome_network:
+    external: true
+    name: prome_network
