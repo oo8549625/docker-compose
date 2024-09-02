@@ -1,0 +1,28 @@
+services:
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:8.15.0
+    container_name: filebeat
+    user: root
+    command: ["--strict.perms=false"]
+    configs:
+      - source: fb_config
+        target: /usr/share/filebeat/filebeat.yml
+    volumes:
+      - filebeat:/usr/share/filebeat/data
+      - ./log:/var/log
+    deploy:
+      mode: global
+    networks:
+      - elastic
+
+volumes:
+  filebeat: {}
+
+networks:
+  elastic:
+    external: true
+    name: elastic
+  
+configs:
+  fb_config:
+    file: ./filebeat.yml

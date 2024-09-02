@@ -1,0 +1,48 @@
+filebeat.config:
+  modules:
+    path: ${path.config}/modules.d/*.yml
+    reload.enabled: false
+
+processors:
+  - add_cloud_metadata: ~
+  - add_docker_metadata: ~
+  - drop_fields:
+      fields:
+        - agent
+        - agent.ephemeral_id
+        - agent.id
+        - agent.name
+        - agent.type
+        - agent.version
+        - input
+        - input.type
+        - ecs
+        - ecs.version
+        - host
+        - host.architecture
+        - host.containerized
+        - host.hostname
+        - host.id
+        - host.ip
+        - host.mac
+        - host.name
+        - host.os.codename
+        - host.os.family
+        - host.os.kernel
+        - host.os.name
+        - host.os.platform
+        - host.os.version
+        - log
+        - log.offset
+        - log.file
+
+filebeat.inputs:
+- type: filestream
+  id: auth-log
+  enabled: true
+  paths:
+    - /var/log/auth.log
+  fields_under_root: true
+
+output.logstash:
+  hosts: ["logstash:5044"]
