@@ -25,4 +25,5 @@ networks:
   
 configs:
   fb_config:
+    name: fb_config
     file: ./filebeat.yml
