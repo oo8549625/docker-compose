@@ -30,17 +30,17 @@ scrape_configs:
   - job_name: "http probe"
     metrics_path: /probe
     params:
-      module: [http_2xx]
+      module: [http_cname_check]
     static_configs:
     - targets:
-      - feb1e97c.rb6234.com
+      - efb6c880.dnsdan.net
     relabel_configs:
     - source_labels: [__address__]
       target_label: __param_target
     - source_labels: [__param_target]
       target_label: instance
     - target_label: __address__
-      replacement: blackbox:9115
+      replacement: blackbox_exporter:9115
 
   - job_name: domain
     metrics_path: /probe
@@ -48,7 +48,7 @@ scrape_configs:
       - source_labels: [__address__]
         target_label: __param_target
       - target_label: __address__
-        replacement: domain:9222 # domain_exporter address
+        replacement: domain_exporter:9222 # domain_exporter address
     static_configs:
       - targets:
-        - rb6234.com
+        - dnsdan.net

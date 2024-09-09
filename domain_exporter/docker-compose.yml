@@ -1,8 +1,8 @@
 services:
-  domain:
+  domain_exporter:
     image: caarlos0/domain_exporter:v1.23.0
     restart: always
-    container_name: domain
+    container_name: domain_exporter
     ports:
       - 9222:9222
     networks:
