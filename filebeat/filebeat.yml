@@ -37,11 +37,20 @@ processors:
         - log.file
 
 filebeat.inputs:
-- type: filestream
-  id: auth-log
+- type: log
   enabled: true
+  fields:
+    type: aaa-ssh-log
   paths:
     - /var/log/auth.log
+  fields_under_root: true
+  
+- type: log
+  enabled: true
+  fields:
+    type: bbb-ssh-log
+  paths:
+    - /var/log/auth2.log
   fields_under_root: true
 
 output.logstash:
