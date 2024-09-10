@@ -5,3 +5,6 @@ modules:
       preferred_ip_protocol: "ip4"
       valid_status_codes: [200, 404]
       method: GET
+    
+  tcp_connect_check:
+    prober: tcp
