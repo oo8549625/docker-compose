@@ -1,10 +1,16 @@
 modules:
-  http_cname_check:
+  http_404:
     prober: http
     http:
       preferred_ip_protocol: "ip4"
-      valid_status_codes: [200, 404]
+      valid_status_codes: [404]
+      method: GET
+
+  http_2xx:
+    prober: http
+    http:
+      preferred_ip_protocol: "ip4"
       method: GET
     
-  tcp_connect_check:
+  tcp_connect:
     prober: tcp

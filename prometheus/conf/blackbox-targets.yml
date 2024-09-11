@@ -1,0 +1,6 @@
+- targets:
+  # <BLACKBOX_EXPORTER_IP_PORT>:_:<<MODULE>:_:<JOB>:_:<TARGET_URL>
+  # A
+  - blackbox_exporter:9115:_:http_404:_:anti_ddos_cname_http:_:abc.com
+  # B
+  - blackbox_exporter1:9115:_:tcp_connect:_:node_cname_http:_:abc.com:80
