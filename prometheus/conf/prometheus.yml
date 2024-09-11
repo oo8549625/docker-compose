@@ -27,29 +27,30 @@ scrape_configs:
     static_configs:
     - targets: ['127.0.0.1:9090']
 
-  - job_name: 'blackbox'
-    scrape_interval: 30s
-    scrape_timeout: 30s
+  - job_name: 'blackbox_exporter'
     metrics_path: /probe
     file_sd_configs:
       - files:
           - /etc/prometheus/blackbox-targets.yml
     relabel_configs:
       - source_labels: [__address__]
-        regex: '.*:_:(.*):_:.*:_:.*'
-        target_label: module       
+        regex: '.*:_:(.*):_:.*:_:.*:_:.*'
+        target_label: module 
       - source_labels: [__address__]
-        regex: '.*:_:.*:_:.*:_:(.*)'
+        regex: '.*:_:.*:_:(.*):_:.*:_:.*'
+        target_label: job      
+      - source_labels: [__address__]
+        regex: '.*:_:.*:_:.*:_:(.*):_:.*'
         target_label: instance
       - source_labels: [__address__]
-        regex: '.*:_:.*:_:(.*):_:.*'
-        target_label: job        
+        regex: '.*:_:.*:_:.*:_:.*:_:(.*)'
+        target_label: target
       - source_labels: [module]
         target_label: __param_module        
-      - source_labels: [instance]
+      - source_labels: [target]
         target_label: __param_target        
       - source_labels: [__address__]
-        regex: '(.*):_:.*:_:.*:_:.*'
+        regex: '(.*):_:.*:_:.*:_:.*:_:.*'
         target_label: __address__
 
   - job_name: domain
