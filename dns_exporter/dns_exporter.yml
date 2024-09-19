@@ -1,5 +1,5 @@
 modules:
-  cf_cname:
+  cf_A:
     query_type: "A"
     server: "1.1.1.1"
     family: "ipv4"
