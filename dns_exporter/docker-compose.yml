@@ -1,0 +1,16 @@
+services:
+  dns_exporter:
+    image: tykling/dns_exporter:latest
+    container_name: dns_exporter
+    ports:
+      - 15353:15353
+    restart: always
+    volumes:
+      - ./dns_exporter.yml:/home/nonroot/dns_exporter.yml:ro
+    networks:
+      - prome_network
+
+networks:
+  prome_network:
+    external: true
+    name: prome_network    
