@@ -3,6 +3,7 @@ services:
     image: prom/prometheus:v2.54.0
     user: "1003"
     restart: always
+    container_name: prometheus
     command: 
       - --storage.tsdb.retention.time=10d
       - --storage.tsdb.retention.size=50GB
