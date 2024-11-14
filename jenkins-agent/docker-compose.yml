@@ -1,0 +1,16 @@
+services:
+  agent:
+    image: jenkins/ssh-agent:jdk21
+    container_name: agent
+    restart: unless-stopped
+    env_file: 
+      - config.env
+    ports:
+      - 2200:22
+    volumes:
+      - /opt/jenkins/agent:/home/jenkins/agent:rw
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker
+      - /usr/libexec/docker/cli-plugins:/usr/libexec/docker/cli-plugins
+    extra_hosts:
+      - "harbor.ppadev.com:10.0.15.151"
