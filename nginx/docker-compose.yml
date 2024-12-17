@@ -6,5 +6,7 @@ services:
     volumes:
       - ./v1/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./v1/conf.d:/etc/nginx/conf.d
+      - ./ssl:/etc/nginx/ssl
     ports:
-      - 8080:80
+      - 80:80
+      - 443:443
