@@ -3,8 +3,14 @@ services:
     image: nginx:latest
     container_name: nginx
     restart: unless-stopped
+    configs:
+      - source: nginx_config
+        target: /etc/nginx/nginx.conf
     volumes:
-      - ./config/nginx.conf:/etc/nginx/nginx.conf
       - ./config/conf.d:/etc/nginx/conf.d
     ports:
       - 80:80
+
+configs:
+  nginx_config:
+    file: ./config/nginx.conf
